@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -32,13 +33,24 @@ func proxyController(c *gin.Context) {
 	res, err := client.Invoke(lambdaport, payload, duration)
 
 	if err != nil {
+		fmt.Println(err)
 		c.JSON(http.StatusBadGateway, gin.H{
-			"err": err,
+			"err": err.Error(),
 		})
 		return
 	}
 
-	c.JSON(http.StatusOK, string(res))
+	var a struct {
+		StatusCode        int            `json:"statusCode"`
+		Headers           map[string]any `json:"headers"`
+		MultiValueHeaders any            `json:"multiValueHeaders"`
+		Body              any            `json:"body"`
+	}
+
+	fmt.Println(string(res))
+	json.Unmarshal(res, &a)
+
+	c.IndentedJSON(http.StatusOK, a)
 }
 
 func main() {

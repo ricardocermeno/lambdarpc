@@ -1,4 +1,4 @@
-@endpoint = http://localhost:8081
+@endpoint = http://localhost:8082
 
 ###
 POST {{endpoint}}/proxy
