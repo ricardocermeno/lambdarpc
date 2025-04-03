@@ -1,0 +1,11 @@
+@endpoint = http://localhost:8081
+
+###
+POST {{endpoint}}/proxy
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "age": 30,
+    "email": "johndoe@example.com"
+}
