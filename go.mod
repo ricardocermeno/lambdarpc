@@ -1,4 +1,4 @@
-module lambda-rpc
+module lambdarpc
 
 go 1.23.3
 
