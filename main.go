@@ -30,7 +30,7 @@ func proxyController(c *gin.Context) {
 	}
 
 	duration := 15 * time.Second
-	res, err := client.Invoke(lambdaport, payload, duration)
+	invocationRes, err := client.Invoke(lambdaport, payload, duration)
 
 	if err != nil {
 		fmt.Println(err)
@@ -40,17 +40,17 @@ func proxyController(c *gin.Context) {
 		return
 	}
 
-	var a struct {
+	var res struct {
 		StatusCode        int            `json:"statusCode"`
 		Headers           map[string]any `json:"headers"`
 		MultiValueHeaders any            `json:"multiValueHeaders"`
 		Body              any            `json:"body"`
 	}
 
-	fmt.Println(string(res))
-	json.Unmarshal(res, &a)
+	fmt.Println(string(invocationRes))
+	json.Unmarshal(invocationRes, &res)
 
-	c.IndentedJSON(http.StatusOK, a)
+	c.IndentedJSON(http.StatusOK, res)
 }
 
 func main() {
