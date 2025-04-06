@@ -40,3 +40,6 @@ sam:
 
 test:
 	@docker run --rm -it $(IMAGE) help
+
+dev:
+	PORT=8082 go run main.go

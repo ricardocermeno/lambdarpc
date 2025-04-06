@@ -56,7 +56,7 @@ func proxyController(c *gin.Context) {
 func main() {
 	app := gin.Default()
 
-	app.POST("/proxy", proxyController)
+	app.Any("/", proxyController)
 
 	app.Run()
 }
